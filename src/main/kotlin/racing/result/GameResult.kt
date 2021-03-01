@@ -6,7 +6,7 @@ class GameResult(
     fun getWinners(): List<Winner> {
         val lastRoundResult = roundResults.maxBy { it.round } ?: return listOf()
 
-        return lastRoundResult.getRoundWinners()
+        return lastRoundResult.winners
     }
 }
 

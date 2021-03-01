@@ -16,7 +16,7 @@ internal class RoundResultTest {
         val roundResult = RoundResult(1, racingHistories)
 
         // when
-        val winners = roundResult.getRoundWinners()
+        val winners = roundResult.winners
 
         // then
         assertThat(winners.size).isEqualTo(2)
@@ -30,7 +30,7 @@ internal class RoundResultTest {
         val roundResult = RoundResult(1, listOf())
 
         // when
-        val winners = roundResult.getRoundWinners()
+        val winners = roundResult.winners
 
         // then
         assertThat(winners.size).isEqualTo(0)

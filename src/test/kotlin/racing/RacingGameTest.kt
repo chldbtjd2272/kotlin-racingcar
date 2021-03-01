@@ -12,11 +12,12 @@ internal class RacingGameTest {
         // given
         val form = ApplicationForm(listOf("cys", "qwe"))
         val group = RacingCarFactory.generate(form)
-
+        val game = RacingGame(group)
         // when
-        val result = RacingGame(group).start(0)
+        game.start(0)
 
         // then
+        val result = game.getGameResult()
         assertThat(result.roundResults.size).isEqualTo(0)
     }
 
@@ -25,11 +26,12 @@ internal class RacingGameTest {
         // given
         val form = ApplicationForm(listOf("cys", "qwe"))
         val group = RacingCarFactory.generate(form)
-
+        val game = RacingGame(group)
         // when
-        val result = RacingGame(group).start(3)
+        game.start(3)
 
         // then
+        val result = game.getGameResult()
         assertThat(result.roundResults.size).isEqualTo(3)
         assertThat(result.roundResults[0].round).isEqualTo(1)
         assertThat(result.roundResults[1].round).isEqualTo(2)

@@ -4,8 +4,9 @@ class RoundResult(
     val round: Int,
     val racingHistories: List<RacingHistory>
 ) {
+    val winners: List<Winner> = getRoundWinners()
 
-    fun getRoundWinners(): List<Winner> {
+    private fun getRoundWinners(): List<Winner> {
         val winnerHistory = findWinnerHistory() ?: return listOf()
 
         return racingHistories.filter { it.position == winnerHistory.position }
@@ -19,8 +20,7 @@ class RoundResult(
     }
 
     private fun findWinnerHistory(): RacingHistory? {
-        return racingHistories.sortedByDescending { it.position }
-            .maxBy { it.position }
+        return racingHistories.maxBy { it.position }
     }
 }
 

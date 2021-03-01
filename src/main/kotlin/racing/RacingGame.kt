@@ -5,12 +5,24 @@ import racing.participant.RacingGroup
 import racing.result.GameResult
 import racing.result.toGameResult
 
-class RacingGame(private val cars: RacingGroup) {
 
-    fun start(roundCount: Int): GameResult {
-        return (1..roundCount)
+class RacingGame(
+    private val cars: RacingGroup
+) {
+    private var result: GameResult? = null
+
+    fun start(roundCount: Int) {
+        if (result != null) {
+            throw IllegalStateException("이미 수행한 게임입니다.")
+        }
+
+        this.result = (1..roundCount)
             .map { round -> cars.race(round) }
             .toGameResult()
+    }
+
+    fun getGameResult(): GameResult {
+        return result ?: throw IllegalStateException("게임을 진행하지 않았습니다.")
     }
 }
 
@@ -19,7 +31,7 @@ fun main() {
     val group = RacingCarFactory.generate(form)
 
     val game = RacingGame(group)
-    val result = game.start(InputView.inputRunCount())
+    game.start(InputView.inputRunCount())
 
-    OutputView.printResult(result)
+    OutputView.printResult(game.getGameResult())
 }
